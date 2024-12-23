@@ -1,5 +1,7 @@
 const doctorModel = require('../../models/doctor.model')
-const { generate_password } = require('../../utils/hash')
+const { generate_password, compare_password } = require('../../utils/hash')
+const { generate_token } = require('../../utils/token')
+
 
 
 // Create doctor profile
@@ -21,9 +23,9 @@ const create_doctor_profile = async (req, res) => {
         // hash password
         const hashPass = await generate_password(doctor_password)
 
-        const attached_hospitalId = req.id
+        const attached_doctorId = req.id
         const doctor_data = new doctorModel({
-            attached_hospitalId,
+            attached_doctorId,
             doctor_RN,
             doctor_name,
             doctor_mobile,
@@ -52,6 +54,73 @@ const create_doctor_profile = async (req, res) => {
     }
 }
 
+// Login doctor
+const doctor_login = async (req, res) => {
+
+
+    try {
+
+        const {
+            doctor_RN,
+            password } = req.body
+
+        // console.log('doctor-logIn --> ', req.body)
+
+        const doctor_data = await doctorModel.findOne({ doctor_RN: doctor_RN })
+        if (!doctor_data) {
+
+            return res.status(404).json({
+                "status": 404,
+                "error": "Not Found",
+                "message": "The requested data was not found."
+            })
+        }
+
+        // console.log('login --> ', doctor_data)
+
+        // check password
+        const verified = await compare_password(password, doctor_data.doctor_password)
+        if (!verified) {
+
+            res.status(402).json({
+                "status": 401,
+                "error": "Unauthorized",
+                "message": "Invalid credentials. Please check your username and password and try again."
+            })
+            return
+        }
+
+        // generate token
+        const token = await generate_token(doctor_data._id)
+        if (!token) {
+
+            res.status(500).json({
+                "status": 500,
+                "error": "Internal Server Error",
+                "message": "An error occurred while attempting to save the data. Please try again later."
+            })
+            return
+        }
+        res.status(200).json({
+            "status": 200,
+            "message": "Login successful.",
+            "data": {
+                "username": doctor_RN,
+                "token": token
+            }
+        })
+
+    } catch (error) {
+
+        console.log('login doctor --> ', error)
+        res.status(500).json({
+            "status": 500,
+            "error": "Internal Server Error",
+            "message": "An error occurred while attempting to save the data. Please try again later."
+        })
+    }
+}
 module.exports = {
-    create_doctor_profile
+    create_doctor_profile,
+    doctor_login
 }

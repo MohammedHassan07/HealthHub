@@ -30,7 +30,7 @@ function verify_jwt_token(req, res, next) {
             return
         }
 
-        // req.id = verified_token.user_id
+        req.id = verified_token.user_id
         // console.log('verify token -->', verified_token)
         next()
 

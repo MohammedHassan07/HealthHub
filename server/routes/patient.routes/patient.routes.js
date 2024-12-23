@@ -3,7 +3,7 @@ const imageUpload = require('../../middlewares/imageUpload')
 const isEmpty = require('../../middlewares/isEmpty')
 const isUnique = require('../../middlewares/isUnique')
 const { create_patient_profile, login_patient } = require('../../controller/patient/patient.controller')
-const { verify_jwt_token } = require('../../middlewares/verifyToken ')
+const { verify_jwt_token } = require('../../middlewares/verifyToken')
 
 const patient_route = express.Router()
 

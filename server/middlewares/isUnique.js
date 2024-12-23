@@ -34,11 +34,13 @@ module.exports = async function isUnique(req, res, next) {
 function getType(userType) {
     const modelType = {
         hospital: require('../models/hospital.model'),
-        patient: require('../models/patient.model')
+        patient: require('../models/patient.model'),
+        doctor: require('../models/doctor.model')
     }
     const registrationType = {
         hospital: 'hospital_RN',
-        patient: 'patient_RN'
+        patient: 'patient_RN',
+        doctor: 'doctor_RN'
     }
 
 

@@ -21,6 +21,7 @@ const storage = multer.diskStorage({
         // const { default: imageType } = await import('image-type');  
         // const type = imageType(file.buffer)
 
+        // console.log(file)
         const fileName = `${Date.now()}-${Math.random()}.png`
         return cb(null, fileName)
 

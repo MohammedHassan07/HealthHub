@@ -11,6 +11,18 @@
   "message": "A user with the provided details already exists."
 }
 
+3 - {
+  "status": 401,
+  "error": "Unauthorized",
+  "message": "Invalid credentials. Please check your username and password and try again."
+}
+
+4- {
+    "status": 404,
+    "error": "Not Found",
+    "message": "The requested data was not found."
+}
+
 // server
 1- server error: {
   "status": 500,

@@ -5,8 +5,8 @@ const DB_connection = require('./Config/DB_connection')
 
 const app = express()
 
-app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 const port = process.env.PORT 
 
@@ -17,6 +17,5 @@ app.listen(port, () => {
 })
 
 const hospital_route = require('./routes/hospital.routes/hospital.routes')
-
 
 app.use('/hospital', hospital_route)

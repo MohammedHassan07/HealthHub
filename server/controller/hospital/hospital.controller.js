@@ -1,7 +1,6 @@
 const { generate_password } = require('../../utils/hash')
 const hospitalModel = require('../../models/hospital.model')
 
-
 // create hospital profile --> success
 const create_hospital_profile = async (req, res) => {
 
@@ -16,7 +15,9 @@ const create_hospital_profile = async (req, res) => {
             hospital_description,
         } = req.body
 
-        console.log('create-profile -->', req.body)
+        // console.log(req.file)
+
+        // console.log('create-profile -->', req.body)
 
         // hash password
         const hashPass = await generate_password(hospital_password)
@@ -28,8 +29,7 @@ const create_hospital_profile = async (req, res) => {
             hospital_mobile,
             hospital_password: hashPass,
             hospital_description,
-            // hospital_image: req.file.filename TODO: Needs to implement image upload
-            hospital_image: 'empty'
+            hospital_image: `${req.file.filename}`,
         })
 
         const saved_data = await hospital_data.save()

@@ -8,8 +8,10 @@ const multer = require('multer')
 const hospital_route = express.Router()
 const upload = multer()
 hospital_route.post('/create-profile',
-    // imageUpload.single('image'), TODO: Needs to implement image upload
-    upload.none(),
+    
+    // TODO: Needs to implement image upload
+    // upload.none(),
+    imageUpload.single('image'), 
     isEmpty,
     isUnique,
     create_hospital_profile

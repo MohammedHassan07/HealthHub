@@ -35,12 +35,14 @@ function getType(userType) {
     const modelType = {
         hospital: require('../models/hospital.model'),
         patient: require('../models/patient.model'),
-        doctor: require('../models/doctor.model')
+        doctor: require('../models/doctor.model'),
+        pharma: require('../models/pharma.model')
     }
     const registrationType = {
         hospital: 'hospital_RN',
         patient: 'patient_RN',
-        doctor: 'doctor_RN'
+        doctor: 'doctor_RN',
+        pharma: 'pharma_RN'
     }
 
 

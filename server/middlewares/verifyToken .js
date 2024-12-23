@@ -5,11 +5,15 @@ function verify_jwt_token(req, res, next) {
     try {
 
         const user_token = req.headers.token
-        // console.log(user_token)
+        // console.log('verify token -->', user_token)
 
         if (!user_token) {
 
-            res.status(402).json({ flag: false, message: 'Something went wrong, Login again' })
+            res.status(401).json({
+                status: 401,
+                error: "Unauthorized",
+                message: "Authorization token is missing. Please provide a valid token to access this resource."
+            })
             return
         }
 
@@ -18,12 +22,16 @@ function verify_jwt_token(req, res, next) {
 
         if (!verified_token) {
 
-            res.status(402).json({ flag: false, message: 'Something went wrong, Login again' })
+            res.status(402).json({
+                "status": 401,
+                "error": "Unauthorized",
+                "message": "Invalid credentials. Please check your username and password and try again."
+              })
             return
         }
 
-        req.id = verified_token.user_id
-        // console.log(verified_token)
+        // req.id = verified_token.user_id
+        // console.log('verify token -->', verified_token)
         next()
 
     } catch (error) {

@@ -13,9 +13,10 @@ const LoginPage = () => {
     // category click handler
     function handleCategoryClick(categoryName) {
 
-        // console.log(categoryName)
+        console.log(categoryName)
 
         setCategory(categoryName)
+
     }
     return (
         <>
@@ -46,9 +47,14 @@ const LoginPage = () => {
 
                 </div>
             </div>
+            {category === 'Hospital' && <LoginForm category={category} />}
 
+            {category === 'Doctor' && <LoginForm category={category} />}
+
+            {category === 'Pharmacists' && <LoginForm category={category} />}
+
+            {category === 'LabAssistant' && <LoginForm category={category} />}
             <div>
-                {/* <LoginForm category={category} /> */}
             </div>
 
         </>

@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import isEmpty from '../utils/isEmpty'
+import postRequest from '../services/postRequest'
+import getRequest from '../services/getRequest'
 
 {/* login form  */ }
 const LoginForm = ({ category }) => {
@@ -23,9 +25,13 @@ const LoginForm = ({ category }) => {
             setMessage(error)
             setTimeout(() => { setMessage('') }, 2000)
         }
-        else
+        else {
+
             // make network request
             console.log('network')
+            postRequest('/hospital/login', data)
+         
+        }
 
     }
 

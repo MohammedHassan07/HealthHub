@@ -1,11 +1,11 @@
-import { useState } from 'react'
-import './App.css'
+import LoginPage from './pages/LoginPage'
 
 function App() {
 
   return (
     <>
-     <h1>Health Hub</h1>
+
+      <LoginPage />
     </>
   )
 }

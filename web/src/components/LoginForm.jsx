@@ -30,8 +30,6 @@ const LoginForm = ({ category }) => {
             // make network request
             // console.log('network')
             postRequest('/api/hospital/login', data)
-            getRequest('/api')
-
         }
 
     }

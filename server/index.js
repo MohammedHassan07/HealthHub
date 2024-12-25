@@ -30,3 +30,9 @@ app.use('/api/hospital', hospital_route)
 app.use('/api/patient', patient_route)
 app.use('/api/doctor', doctor_routes)
 app.use('/api/pharma', pharma_route)
+
+app.get('/api', (req, res) => {
+
+
+  res.json({message: 'got the request'})
+})

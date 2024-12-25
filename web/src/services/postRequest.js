@@ -6,10 +6,15 @@ export default async function postRequest(endPoint, data) {
 
         console.log('post request --> ', endPoint)
         const response = await axios.post(endPoint, data)
-        
-        console.log(response.data)
+
+        // console.log(response)
+        return { response, flag: true }
 
     } catch (error) {
-        console.log(error)
+
+        if (error.response) {
+
+            return { response: error.response.data, flag: false }
+        }
     }
 }

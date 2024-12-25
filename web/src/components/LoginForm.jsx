@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import isEmpty from '../utils/isEmpty'
 import postRequest from '../services/postRequest'
-import getRequest from '../services/getRequest'
 
 {/* login form  */ }
 const LoginForm = ({ category }) => {
@@ -16,7 +15,6 @@ const LoginForm = ({ category }) => {
         e.preventDefault()
         // console.log(registrationNumber, password)
 
-        // check empty fields and display message
         const data = { hospital_RN: registrationNumber, password }
 
         const { flag, error } = isEmpty(data)
@@ -29,7 +27,17 @@ const LoginForm = ({ category }) => {
 
             // make network request
             // console.log('network')
-            postRequest('/api/hospital/login', data)
+            const response = await postRequest('/api/hospital/login', data)
+            if (response.flag) {
+
+                const token = response.response.data.data.token
+                localStorage.setItem('token', token)
+            } else {
+
+                setMessage(response.response.message)
+                setTimeout(() => { setMessage('') }, 2000)
+            }
+
         }
 
     }

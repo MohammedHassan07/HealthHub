@@ -17,7 +17,7 @@ const LoginForm = ({ category }) => {
         // console.log(registrationNumber, password)
 
         // check empty fields and display message
-        const data = { registrationNumber, password }
+        const data = { hospital_RN: registrationNumber, password }
 
         const { flag, error } = isEmpty(data)
         if (flag) {
@@ -28,9 +28,10 @@ const LoginForm = ({ category }) => {
         else {
 
             // make network request
-            console.log('network')
-            postRequest('/hospital/login', data)
-         
+            // console.log('network')
+            postRequest('/api/hospital/login', data)
+            getRequest('/api')
+
         }
 
     }

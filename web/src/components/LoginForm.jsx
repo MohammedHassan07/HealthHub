@@ -1,23 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import isEmpty from '../utils/isEmpty'
 import postRequest from '../services/postRequest'
-import { useLocation } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 
 {/* login form  */ }
 const LoginForm = () => {
 
     const location = useLocation()
+    const navigate = useNavigate()
     const [registrationNumber, setRegistrationNumber] = useState('')
     const [password, setPassword] = useState('')
     const [message, setMessage] = useState('')
     const [category, setCategory] = useState('')
 
     useEffect(() => {
+
         const { state } = location || {}
-        console.log(state)
+        
+        // console.log(state)
         setCategory(state)
-        console.log(state)
     }, [])
 
     // handle login
@@ -38,21 +40,48 @@ const LoginForm = () => {
 
             // make network request
             // console.log('network')
-            const response = await postRequest('/api/hospital/login', data)
+            const endPoint = getUserType(category)
+            console.log(endPoint)
+            const response = await postRequest(endPoint, data)
             if (response.flag) {
 
                 const token = response.response.data.data.token
                 localStorage.setItem('token', token)
+
+                navigate(`${state}Dashboard`)
             } else {
 
+                // console.log(response)
                 setMessage(response.response.message)
                 setTimeout(() => { setMessage('') }, 2000)
+
             }
 
         }
 
     }
-    
+
+    function getUserType(type) {
+
+        // const userType = {
+
+        //     'Hospital': '',
+        //     'Pharma': '',
+        //     'Doctor': '',
+        //     'LabAssitant': ''
+        // }
+
+        const apiEndPint = {
+
+            'Hospital': '/api/hospital/login',
+            'Pharma': '/api/pharma/login',
+            'Doctor': '/api/doctor/login',
+            'LabAssitant': '/api/assistant/login'
+        }
+
+        return apiEndPint[type]
+    }
+
     return (
         <>
             <div className='w-screen h-screen flex items-center justify-center'>

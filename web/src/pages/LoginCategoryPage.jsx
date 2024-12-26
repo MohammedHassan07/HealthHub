@@ -17,23 +17,23 @@ const LoginCategoryPage = () => {
 
                     <BtnCategory
                         categoryName={'Hospital'}
-                        handleCategoryClick={handleCategoryClick} />
+                    />
 
                     <BtnCategory
                         categoryName={'Doctor'}
-                        handleCategoryClick={handleCategoryClick} />
+                    />
 
                     <BtnCategory
-                        categoryName={'Pharmacists'}
-                        handleCategoryClick={handleCategoryClick} />
+                        categoryName={'Pharma'}
+                    />
 
                     <BtnCategory
                         categoryName={'LabAssistant'}
-                        handleCategoryClick={handleCategoryClick} />
+                    />
 
                 </div>
             </div>
-            
+
         </>
     )
 }

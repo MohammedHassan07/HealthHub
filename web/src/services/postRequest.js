@@ -4,7 +4,7 @@ export default async function postRequest(endPoint, data) {
 
     try {
 
-        console.log('post request --> ', endPoint)
+        // console.log('post request --> ', endPoint)
         const response = await axios.post(endPoint, data)
 
         // console.log(response)
@@ -14,6 +14,7 @@ export default async function postRequest(endPoint, data) {
 
         if (error.response) {
 
+            // console.log(error.response)
             return { response: error.response.data, flag: false }
         }
     }

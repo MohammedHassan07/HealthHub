@@ -10,7 +10,7 @@ export default function isEmpty(data) {
 
             if (data[key] === undefined || data[key] === null || data[key].trim() === '') {
 
-                return {flag: true, error: `${key} is Required !!!`}
+                return {flag: true, error: `All fields are Required !!!`}
             }
         }
     }

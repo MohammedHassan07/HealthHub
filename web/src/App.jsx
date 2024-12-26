@@ -1,11 +1,19 @@
-import LoginPage from './pages/LoginPage'
+import { Route, Routes, BrowserRouter } from 'react-router-dom'
+import LoginCategoryPage from './pages/LoginCategoryPage'
+import LoginForm from './components/LoginForm'
 
 function App() {
 
   return (
     <>
 
-      <LoginPage />
+      <BrowserRouter>
+
+        <Routes>
+          <Route path="/" element={<LoginCategoryPage />} />
+          <Route path='/login' element={<LoginForm />} />
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }

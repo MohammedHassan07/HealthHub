@@ -1,23 +1,9 @@
-import React, { useState } from 'react'
 import logo from '../assets/icons/logo.png'
 import BtnCategory from '../components/BtnCategory'
-import LoginForm from '../components/LoginForm'
 
 
+const LoginCategoryPage = () => {
 
-
-const LoginPage = () => {
-
-    const [category, setCategory] = useState('')
-
-    // category click handler
-    function handleCategoryClick(categoryName) {
-
-        console.log(categoryName)
-
-        setCategory(categoryName)
-
-    }
     return (
         <>
 
@@ -47,18 +33,9 @@ const LoginPage = () => {
 
                 </div>
             </div>
-            {category === 'Hospital' && <LoginForm category={category} />}
-
-            {category === 'Doctor' && <LoginForm category={category} />}
-
-            {category === 'Pharmacists' && <LoginForm category={category} />}
-
-            {category === 'LabAssistant' && <LoginForm category={category} />}
-            <div>
-            </div>
-
+            
         </>
     )
 }
 
-export default LoginPage
+export default LoginCategoryPage

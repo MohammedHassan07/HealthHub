@@ -26,11 +26,11 @@ const LoginForm = () => {
         }
     }, [])
 
-    // handle login
+    // handle login TODO: Lab assistant login needs to implement
     async function handleLogin(e) {
         e.preventDefault()
 
-        const data = { hospital_RN: registrationNumber, password }
+        const data = { registrationNumber, password }
         const { flag, error } = isEmpty(data)
 
         if (flag) {
@@ -39,10 +39,16 @@ const LoginForm = () => {
             return
         }
 
-        const endPoint = getUserType(categoryState.category)
+        const [endPoint, registrationType] = getUserType(categoryState.category)
         console.log(endPoint)
 
-        const response = await postRequest(endPoint, data)
+        let loginData = {}
+
+        loginData[registrationType] = registrationNumber
+        loginData.password = password
+       
+        console.log(loginData)
+        const response = await postRequest(endPoint, loginData)
         if (response.flag) {
 
             const token = response.response.data.data.token
@@ -57,13 +63,23 @@ const LoginForm = () => {
     }
 
     function getUserType(type) {
+
         const apiEndPoints = {
             'Hospital': '/api/hospital/login',
             'Pharma': '/api/pharma/login',
             'Doctor': '/api/doctor/login',
-            'LabAssitant': '/api/assistant/login',
+            'LabAssistant': '/api/assistant/login',
         }
-        return apiEndPoints[type]
+
+        const registrationType = {
+
+            'Hospital': 'hospital_RN',
+            'Pharma': 'pharma_RN',
+            'Doctor': 'doctor_RN',
+            'LabAssistant': 'lab_RN',
+        }
+
+        return [apiEndPoints[type], registrationType[type]]
     }
 
     return (

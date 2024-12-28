@@ -12,7 +12,7 @@ const create_hospital_profile = async (req, res) => {
             hospital_name,
             hospital_address,
             hospital_mobile,
-            hospital_password,
+            password,
             hospital_description,
         } = req.body
 
@@ -21,14 +21,14 @@ const create_hospital_profile = async (req, res) => {
         // console.log('create-profile -->', req.body)
 
         // hash password
-        const hashPass = await generate_password(hospital_password)
+        const hashPass = await generate_password(password)
 
         const hospital_data = new hospitalModel({
             hospital_RN,
             hospital_name,
             hospital_address,
             hospital_mobile,
-            hospital_password: hashPass,
+            password: hashPass,
             hospital_description,
             hospital_image: `${req.file.filename}`,
         })
@@ -75,10 +75,10 @@ const hospital_login = async (req, res) => {
         // console.log('login --> ', hospital_data)
 
         // check password
-        const verified = await compare_password(password, hospital_data.hospital_password)
+        const verified = await compare_password(password, hospital_data.password)
         if (!verified) {
 
-            res.status(402).json({
+            res.status(401).json({
                 "status": 401,
                 "error": "Unauthorized",
                 "message": "Invalid credentials. Please check your username and password and try again."

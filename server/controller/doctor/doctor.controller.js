@@ -12,7 +12,7 @@ const create_doctor_profile = async (req, res) => {
             doctor_RN,
             doctor_name,
             doctor_mobile,
-            doctor_password,
+            password,
             doctor_gender,
             doctor_email,
             doctor_qualification
@@ -21,7 +21,7 @@ const create_doctor_profile = async (req, res) => {
         // console.log('create-profile -->', req.body)
 
         // hash password
-        const hashPass = await generate_password(doctor_password)
+        const hashPass = await generate_password(password)
 
         const attached_doctorId = req.id
         const doctor_data = new doctorModel({
@@ -29,7 +29,7 @@ const create_doctor_profile = async (req, res) => {
             doctor_RN,
             doctor_name,
             doctor_mobile,
-            doctor_password: hashPass,
+            password: hashPass,
             doctor_gender,
             doctor_image: `${req.file.filename}`,
             doctor_email,
@@ -79,7 +79,7 @@ const doctor_login = async (req, res) => {
         // console.log('login --> ', doctor_data)
 
         // check password
-        const verified = await compare_password(password, doctor_data.doctor_password)
+        const verified = await compare_password(password, doctor_data.password)
         if (!verified) {
 
             res.status(402).json({

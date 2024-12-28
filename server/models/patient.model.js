@@ -3,7 +3,7 @@ const { model, Schema } = require('mongoose')
 const patinet_schema = new Schema({
 
     patient_RN: { type: String, required: true },
-    patient_password: { type: String, required: true },
+    password: { type: String, required: true },
     patient_name: { type: String, required: true },
     patient_address: { type: String, required: true },
     patient_mobile: { type: String, required: true },

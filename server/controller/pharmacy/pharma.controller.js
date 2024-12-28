@@ -14,14 +14,14 @@ const create_pharma_profile = async (req, res) => {
             pharma_mobile,
             owner_name,
             pharma_email,
-            pharma_password,
+            password,
             pharma_qualification
         } = req.body
 
         // console.log('create-profile -->', req.body)
 
         // hash password
-        const hashPass = await generate_password(pharma_password)
+        const hashPass = await generate_password(password)
 
         const attached_hospitalId = req.id
         const pharma_data = new pharmaModel({
@@ -30,7 +30,7 @@ const create_pharma_profile = async (req, res) => {
             pharma_name,
             pharma_mobile,
             owner_name,
-            pharma_password: hashPass,
+            password: hashPass,
             pharma_image: `${req.file.filename}`,
             pharma_email,
             pharma_qualification
@@ -78,7 +78,7 @@ const pharma_login = async (req, res) => {
         // console.log('login --> ', pharma_data)
 
         // check password
-        const verified = await compare_password(password, pharma_data.pharma_password)
+        const verified = await compare_password(password, pharma_data.password)
         if (!verified) {
 
             res.status(402).json({

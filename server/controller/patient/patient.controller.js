@@ -12,7 +12,7 @@ const create_patient_profile = async (req, res) => {
             patient_name,
             patient_address,
             patient_mobile,
-            patient_password,
+            password,
         } = req.body
 
         // console.log('create profile --> ',req.file)
@@ -20,14 +20,14 @@ const create_patient_profile = async (req, res) => {
         // console.log('create-profile -->', req.body)
 
         // hash password
-        const hashPass = await generate_password(patient_password)
+        const hashPass = await generate_password(password)
 
         const patient_data = new patientModel({
             patient_RN,
             patient_name,
             patient_address,
             patient_mobile,
-            patient_password: hashPass,
+            password: hashPass,
             patient_image: `${req.file.filename}`,
         })
 
@@ -71,7 +71,7 @@ const login_patient = async (req, res) => {
         // console.log('login --> ', patient_data)
 
         // check password
-        const verified = await compare_password(password, patient_data.patient_password)
+        const verified = await compare_password(password, patient_data.password)
         if (!verified) {
 
             res.status(402).json({

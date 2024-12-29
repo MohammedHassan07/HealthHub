@@ -7,6 +7,14 @@ const HospitalDashboard = () => {
 
   const navigate = useNavigate()
 
+  // logout
+  function handleLogout() {
+
+    console.log('logout')
+    localStorage.removeItem('tokenData')
+    navigate('/')
+  }
+
   useEffect(() => {
 
     const tokenData = localStorage.getItem('tokenData')
@@ -59,25 +67,6 @@ const HospitalDashboard = () => {
               {/* TODO: the lab profile may be created by developer */}
               {/* <BtnTaskCategory taskName={'create Lab'} imageType={'Lab'} /> */}
 
-
-              <li
-                className='border-b-2 border-blue-950 p-2 text-xl text-blue-950 hover:shadow hover:shadow-blue-950 hover:cursor-pointer'>
-                Profile
-              </li>
-
-              <li
-                className='border-b-2 border-blue-950 p-2 text-xl text-blue-950  hover:shadow hover:shadow-blue-950 hover:cursor-pointer'>
-                About
-              </li>
-
-              <li
-                className='border-b-2 border-blue-950 p-2 text-xl text-blue-950  hover:shadow hover:shadow-blue-950 hover:cursor-pointer'>
-                Log out
-              </li>
-
-              {/* <li>
-                Exit
-              </li> */}
             </ul>
 
           </div>
@@ -87,30 +76,39 @@ const HospitalDashboard = () => {
         <div className='w-full'>
 
           {/* nav bar */}
-          <div 
-          className='flex items-center justify-between h-16 px-10 bg-blue-950 text-white hover:cursor-pointer'>
+          <div
+            className='flex items-center justify-between h-16 px-10 bg-blue-950 text-white'>
             <div className=''>
 
-              <ul className='flex'>
+              <ul className='flex items-center justify-center gap-32'>
 
-                <li>
+                <li className='hover:cursor-pointer'>
                   Home
                 </li>
 
-                <li>
+                <li className='hover:cursor-pointer'>
                   About
                 </li>
 
-                <li>
+                <li className='hover:cursor-pointer'>
                   Contact
+                </li>
+
+
+                <li className='hover:cursor-pointer'>
+                  Profile
                 </li>
               </ul>
             </div>
 
             <div>
-              <img className='w-7' src={logout} alt="" />
+
+              <img 
+              className='w-7 hover:cursor-pointer'
+               src={logout} alt="logout"
+                onClick={handleLogout}/>
             </div>
-            
+
           </div>
 
           {/* main content */}

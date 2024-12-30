@@ -21,7 +21,8 @@ const LoginForm = () => {
         if (tokenData) {
 
             const { token } = JSON.parse(tokenData)
-            console.log('Token found:', token)
+            // console.log('Token found:', token)
+            
             navigate(`/${categoryState.category}-dashboard`)
         }
     }, [])

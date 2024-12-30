@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import BtnTaskCategory from '../components/BtnTaskCategory'
 import logout from '../assets/icons/logout.png'
 
@@ -52,17 +52,35 @@ const HospitalDashboard = () => {
 
             <ul className=''>
 
-              <BtnTaskCategory taskName={'Create Patient'} imageType={'Patient'} />
+              <BtnTaskCategory 
+              taskName={'Create Patient'} 
+              imageType={'Patient'}
+              path={'/hospital-dashboard/create-patient'}  />
 
-              <BtnTaskCategory taskName={'View Patient'} imageType={'viewPatient'} />
+              <BtnTaskCategory 
+              taskName={'View Patient'} 
+              imageType={'viewPatient'}  
+              path={'/hospital-dashboard/view-patient'} />
 
-              <BtnTaskCategory taskName={'Create Doctor'} imageType={'Doctor'} />
+              <BtnTaskCategory 
+              taskName={'Create Doctor'} 
+              imageType={'Doctor'}
+               path={'/hospital-dashboard/create-doctor'}  />
 
-              <BtnTaskCategory taskName={'View Doctor'} imageType={'viewDoctor'} />
+              <BtnTaskCategory 
+              taskName={'View Doctor'} 
+              imageType={'viewDoctor'}
+               path={'/hospital-dashboard/view-patient'}  />
 
-              <BtnTaskCategory taskName={'Create Pharma'} imageType={'Pharma'} />
+              <BtnTaskCategory 
+              taskName={'Create Pharma'} 
+              imageType={'Pharma'}
+               path={'/hospital-dashboard/create-pharma'}  />
 
-              <BtnTaskCategory taskName={'View Pharma'} imageType={'viewPharma'} />
+              <BtnTaskCategory 
+              taskName={'View Pharma'} 
+              imageType={'viewPharma'}
+               path={'/hospital-dashboard/view-patient'}  />
 
               {/* TODO: the lab profile may be created by developer */}
               {/* <BtnTaskCategory taskName={'create Lab'} imageType={'Lab'} /> */}
@@ -103,10 +121,10 @@ const HospitalDashboard = () => {
 
             <div>
 
-              <img 
-              className='w-7 hover:cursor-pointer'
-               src={logout} alt="logout"
-                onClick={handleLogout}/>
+              <img
+                className='w-7 hover:cursor-pointer'
+                src={logout} alt="logout"
+                onClick={handleLogout} />
             </div>
 
           </div>
@@ -114,6 +132,7 @@ const HospitalDashboard = () => {
           {/* main content */}
           <div>
 
+            <Outlet />
           </div>
 
           {/* TODO: add background image  */}

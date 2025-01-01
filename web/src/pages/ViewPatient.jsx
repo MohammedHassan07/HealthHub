@@ -1,12 +1,13 @@
 import React from 'react'
 import qrCode from '../assets/icons/qr-code-scanner.png'
 import search from '../assets/icons/search.png'
+import userImage from '../assets/icons/user.png'
 
 const ViewPatient = () => {
   return (
     <div>
 
-      <div className="flex">
+      <div className="">
         {/* <aside>
             <div className="aside-top flex al-center sp-between">
 
@@ -76,25 +77,60 @@ const ViewPatient = () => {
             </div>
         </aside> */}
 
+        {/* search patient  */}
+        <div className='w-full bg-blue-950 flex justify-between items-center p-2 gap-2'>
+
+          <div className='w-full'>
+            <input className='w-full border-2 border-blue-950 rounded-lg p-1 focus:outline-none' type="text" placeholder="Search Patient" />
+          </div>
+
+          <div className='flex gap-2'>
+
+            <img className='w-8' src={qrCode}
+              alt="QR Code" />
+
+            <img className='w-8' src={search} alt="Search" />
+          </div>
+
+        </div>
+
+        {/* patient detail with photo */}
+        <div className='flex border-b-2 border-blue-950 p-2 gap-4'>
+
+          <div className='border-2 border-blue-950'>
+            <img className='w-24' src={userImage} alt="" />
+          </div>
+
+          <div className='flex gap-8 justify items-start'>
+
+            <div className=''>
+
+              <p className='mt-2 text-xl'>Name: {'Potter'}</p>
+              <p className='mt-2 text-xl'>Aadhar: {'4123456'}</p>
+            </div>
+
+            <div>
+
+              <p className='mt-2 text-xl' >Age: {'12'}</p>
+              <p className='mt-2 text-xl' >Gender: {'Male'}</p>
+            </div>
+
+            <div>
+              <p className='mt-2 text-xl' >Mobile: {'1243545'}</p>
+              <p className='mt-2 text-xl' >Email: {'Potter@Hogwardz.com'}</p>
+            </div>
+            <div>
+
+              <p className='mt-2 text-xl' >Address: {'Hogwardz'}</p>
+            </div>
+          </div>
+
+        </div>
+
         {/* disease Description  */}
         <main>
 
-          {/* search patient  */}
-          <div className='w-full bg-blue-950 flex justify-between items-center p-2 gap-2'>
 
-            <div className='w-full'>
-              <input className='w-full border-2 border-blue-950 rounded-lg p-1 focus:outline-none' type="text" placeholder="Search Patient" />
-            </div>
-
-            <div className='flex gap-2'>
-
-              <img className='w-8' src={qrCode}
-                alt="QR Code" />
-
-              <img className='w-8' src={search} alt="Search" />
-            </div>
-
-          </div>
 
           {/* patient-description  */}
           <div className="patient-description">

@@ -1,5 +1,5 @@
 module.exports = function isEmpty(req, res, next) {
-   
+
     const data = req.body
     // console.log(req.body)
 
@@ -10,18 +10,21 @@ module.exports = function isEmpty(req, res, next) {
             message: "Required values are empty."
         })
     }
-   
+
     for (let key in data) {
 
         if (Object.prototype.hasOwnProperty.call(data, key)) {
 
-            if (data[key] === undefined || data[key] === null || data[key].trim() === '') {
+            if (key !== 'image') {
 
-                return res.status(400).json({
-                    status: 400,
-                    error: "Bad Request",
-                    message: `Required field '${key}' is empty.`
-                })
+                if (data[key] === undefined || data[key] === null || data[key].trim() === '') {
+
+                    return res.status(400).json({
+                        status: 400,
+                        error: "Bad Request",
+                        message: `Required field '${key}' is empty.`
+                    })
+                }
             }
         }
     }

@@ -13,9 +13,11 @@ const create_patient_profile = async (req, res) => {
             patient_address,
             patient_mobile,
             password,
+            patient_gender,
+            patient_age,
         } = req.body
 
-        // console.log('create profile --> ',req.file)
+        // console.log('create profile 20--> ', req.file)
 
         // console.log('create-profile -->', req.body)
 
@@ -27,6 +29,8 @@ const create_patient_profile = async (req, res) => {
             patient_name,
             patient_address,
             patient_mobile,
+            patient_gender,
+            patient_age,
             password: hashPass,
             patient_image: `${req.file.filename}`,
         })

@@ -8,6 +8,8 @@ const patinet_schema = new Schema({
     patient_address: { type: String, required: true },
     patient_mobile: { type: String, required: true },
     patient_image: { type: String, required: true },
+    patient_age: { type: String, required: true },
+    patient_gender: { type: String, required: true },
 
 }, { timestamps: true })
 

@@ -4,27 +4,28 @@ async function generate_password(userPassword) {
 
     try {
 
+        // console.log(userPassword)
         const hashSalt = bcryptjs.genSaltSync(10); // retreive it from .env 
         const hashPassword = await bcryptjs.hash(userPassword, hashSalt)
 
         if (!hashPassword) {
 
-            return res.status(501).json({
+            return {
                 "status": 500,
                 "error": "Internal Server Error",
                 "message": "An error occurred while attempting to save the data. Please try again later."
-            })
+            }
         }
 
         return hashPassword
     } catch (error) {
 
         console.log('genreate password --> ', error)
-        return res.status(501).json({
+        return {
             "status": 500,
             "error": "Internal Server Error",
             "message": "An error occurred while attempting to save the data. Please try again later."
-        })
+        }
     }
 }
 

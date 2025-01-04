@@ -6,7 +6,7 @@ module.exports = async function isUnique(req, res, next) {
 
         const [model, registrationType] = getType(userType)
 
-        // console.log('unique -->', model)
+        // console.log('unique -->', model, req.body)
 
         const data = await model.findOne({ [registrationType]: req.body[registrationType] })
 

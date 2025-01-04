@@ -35,17 +35,20 @@ const Createpatient = () => {
         const file = e.target.files[0]
         if (file) {
             dispatch({ type: 'SET_IMG', file })
-
-        } else {
-            setMessage('Image is required')
-            setTimeout(() => setMessage(''), 2000)
         }
     }
 
     const handleCreateProfile = (e) => {
         e.preventDefault()
 
-        console.log('Form Data:', state)
+        // console.log('Form Data:', state)
+
+        if (state.image === null) {
+
+            setMessage('image is required ...')
+            setTimeout(() => setMessage(''), 2000)
+            return 
+        }
 
         const { flag, error } = isEmpty(state)
 
@@ -54,6 +57,7 @@ const Createpatient = () => {
             setTimeout(() => setMessage(''), 2000)
             return
         }
+        console.log('network ')
     }
 
     return (

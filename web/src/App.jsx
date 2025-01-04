@@ -9,6 +9,7 @@ import PharmaDashboard from './pages/PharmaDashboard'
 import Createpatient from './pages/Createpatient'
 import ViewPatient from './pages/ViewPatient'
 import Navbar from './components/Navbar'
+import Description from './pages/Description'
 
 function Layout({ children }) {
 
@@ -43,6 +44,7 @@ function App() {
               <Route path='/hospital-dashboard' element={<HospitalDashboard />}>
                 <Route path='create-patient' element={<Createpatient />} />
                 <Route path='view-patient' element={<ViewPatient />} />
+                <Route path='description' element={<Description />} />
               </Route>
 
               <Route path='/doctor-dashboard' element={<DoctorDashboard />} />

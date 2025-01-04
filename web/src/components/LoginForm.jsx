@@ -23,7 +23,7 @@ const LoginForm = () => {
             const { token } = JSON.parse(tokenData)
             // console.log('Token found:', token)
             
-            navigate(`/${categoryState.category}-dashboard`)
+            navigate(`/${categoryState.category}-dashboard/description`)
         }
     }, [])
 

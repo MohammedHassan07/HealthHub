@@ -36,7 +36,7 @@ const HospitalDashboard = () => {
               <BtnTaskCategory
                 taskName={'Create Patient'}
                 imageType={'Patient'}
-                path={'/hospital-dashboard/create-patient'} />
+                path={'/hospital-dashboard/create-profile'} />
 
               <BtnTaskCategory
                 taskName={'View Patient'}
@@ -46,7 +46,7 @@ const HospitalDashboard = () => {
               <BtnTaskCategory
                 taskName={'Create Doctor'}
                 imageType={'Doctor'}
-                path={'/hospital-dashboard/create-doctor'} />
+                path={'/hospital-dashboard/create-profile'} />
 
               <BtnTaskCategory
                 taskName={'View Doctor'}
@@ -56,7 +56,7 @@ const HospitalDashboard = () => {
               <BtnTaskCategory
                 taskName={'Create Pharma'}
                 imageType={'Pharma'}
-                path={'/hospital-dashboard/create-pharma'} />
+                path={'/hospital-dashboard/create-profile'} />
 
               <BtnTaskCategory
                 taskName={'View Pharma'}

@@ -6,11 +6,10 @@ import { CategoryProvider } from './context/CategoryContext'
 import DoctorDashboard from './pages/DoctorDashboard'
 import AssistantDashboard from './pages/AssistantDashboard'
 import PharmaDashboard from './pages/PharmaDashboard'
-import Createpatient from './pages/Createpatient'
 import ViewPatient from './pages/ViewPatient'
 import Navbar from './components/Navbar'
 import Description from './pages/Description'
-import CreateDoctor from './pages/CreateDoctor'
+import CreateProfile from './pages/CreateProfile'
 
 function Layout({ children }) {
 
@@ -44,9 +43,8 @@ function App() {
 
               <Route path='/hospital-dashboard' element={<HospitalDashboard />}>
                 <Route path='description' element={<Description />} />
-                <Route path='create-patient' element={<Createpatient />} />
+                <Route path='create-profile' element={<CreateProfile />} />
                 <Route path='view-patient' element={<ViewPatient />} />
-                <Route path='create-doctor' element={<CreateDoctor />} />
               </Route>
 
               <Route path='/doctor-dashboard' element={<DoctorDashboard />} />

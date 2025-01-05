@@ -61,7 +61,7 @@ const HospitalDashboard = () => {
               <BtnTaskCategory
                 taskName={'View Pharma'}
                 imageType={'viewPharma'}
-                path={'/hospital-dashboard/view-patient'} />
+                path={'/hospital-dashboard/view-pharma'} />
 
               {/* TODO: the lab profile may be created by developer */}
               {/* <BtnTaskCategory taskName={'create Lab'} imageType={'Lab'} /> */}

@@ -143,7 +143,7 @@ const CreateProfile = () => {
 
     // Function to render inputs based on the task
     function renderInputsBasedOnTask(task) {
-        
+
         const formConfig = {
             'Create Doctor': [
                 { label: 'Licence / Registration Number', field: 'doctor_RN', type: 'text', placeholder: 'Your Aadhar number' },

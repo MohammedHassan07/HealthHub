@@ -10,6 +10,7 @@ const CreateDoctor = () => {
     const [message, setMessage] = useState('')
     const [task, setTask] = useState('')
     const location = useLocation()
+    let userType = ''
 
     // reducer function
     function reducer(state, action) {
@@ -34,6 +35,8 @@ const CreateDoctor = () => {
     function updateState(task) {
         switch (task) {
             case 'Create Doctor':
+
+                userType = 'doctor'
                 return {
                     doctor_RN: '',
                     doctor_name: '',
@@ -67,10 +70,12 @@ const CreateDoctor = () => {
 
     // function to append data in formData
     function appendFormData(states) {
+        console.log(states)
         const formData = new FormData()
         for (let key in states) {
             formData.append(key, states[key])
         }
+        formData.append('userType', userType)
         return formData
     }
 
@@ -204,14 +209,14 @@ const CreateDoctor = () => {
                 )}
 
                 <div className="flex flex-col justify-center items-center w-full">
-                    <div className='w-80'>
+                    <div className='flex flex-col justify-center items-center'>
                         <img
                             className="w-24 border-2 border-blue-950 rounded-lg"
                             src={state.image ? URL.createObjectURL(state.image) : user}
                             alt="profile"
                         />
                         <input
-                            className="mt-3"
+                            className='mt-3 w-52'
                             type="file"
                             onChange={handleImageChange}
                         />

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import doctorImage from '../assets/icons/doctors.png'
 import viewDoctorImage from '../assets/icons/view-doctors.png'
 import patientImage from '../assets/icons/patient.png'
@@ -9,10 +9,12 @@ import Lab from '../assets/icons/view-phrama.png'
 import { Link } from 'react-router-dom'
 
 const BtnTaskCategory = ({ taskName, imageType, path }) => {
+
+    // console.log(taskName)
     return (
         <>
 
-            <Link to={path}>
+            <Link to={path} state={taskName}>
                 <li
                     className='border-b-2 border-blue-950 p-2 text-xl text-blue-950 hover:shadow hover:shadow-blue-950 hover:cursor-pointer'>
 

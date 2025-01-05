@@ -23,9 +23,9 @@ const create_doctor_profile = async (req, res) => {
         // hash password
         const hashPass = await generate_password(password)
 
-        const attached_doctorId = req.id
+        const attached_hospitalId = req.id
         const doctor_data = new doctorModel({
-            attached_doctorId,
+            attached_hospitalId,
             doctor_RN,
             doctor_name,
             doctor_mobile,

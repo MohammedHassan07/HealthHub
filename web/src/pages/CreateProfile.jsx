@@ -54,7 +54,16 @@ const CreateProfile = () => {
                     image: null,
                 }
             case 'Create Pharma':
-                return { pharma_RN: '' }
+                return {
+                    pharma_RN: '',
+                    pharma_name: '',
+                    pharma_mobile: '',
+                    password: '',
+                    pharma_email: '',
+                    owner_name: '',
+                    pharma_qualification: '',
+                    image: null,
+                }
             default:
                 return {}
         }
@@ -146,7 +155,7 @@ const CreateProfile = () => {
 
         const formConfig = {
             'Create Doctor': [
-                { label: 'Licence / Registration Number', field: 'doctor_RN', type: 'text', placeholder: 'Your Aadhar number' },
+                { label: 'Licence / Registration Number', field: 'doctor_RN', type: 'text', placeholder: 'Your Licence or Registration  number' },
                 { label: 'Full Name', field: 'doctor_name', type: 'text', placeholder: 'Your Name' },
                 { label: 'Mobile Number', field: 'doctor_mobile', type: 'tel', placeholder: 'Your Mobile number' },
                 { label: 'Password', field: 'password', type: 'password', placeholder: 'Password' },
@@ -164,6 +173,17 @@ const CreateProfile = () => {
                 { label: 'Age', field: 'patient_age', type: 'tel', placeholder: 'Your Age number' },
                 { label: 'Address', field: 'patient_address', type: 'textarea' },
             ],
+            'Create Pharma': [
+                { label: 'Licence / Registration Number', field: 'pharma_RN', type: 'text', placeholder: 'Your Licence or Registration  number' },
+                { label: 'Pharmacy Name', field: 'pharma_name', type: 'text', placeholder: 'Your Name' },
+                { label: 'Owner Name', field: 'owner_name', type: 'text', placeholder: 'Pharmacist Name' },
+                { label: 'Mobile Number', field: 'pharma_mobile', type: 'tel', placeholder: 'Your Mobile number' },
+
+                { label: 'Email', field: 'pharma_email', type: 'email', placeholder: 'Your Email' },
+                { label: 'Password', field: 'password', type: 'password', placeholder: 'Password' },
+                { label: 'Qualification', field: 'pharma_qualification', type: 'textarea' },
+
+            ]
         }
 
         const config = formConfig[task] || []

@@ -8,6 +8,7 @@ const pharma_schema = new Schema({
     password: { type: String, required: true },
     pharma_mobile: { type: String, required: true },
     pharma_email: { type: String, required: true },
+    pharma_qualification: { type: String, required: true },
     attached_hospitalId: { type: Schema.Types.ObjectId, required: true }
 
 }, { timestamps: true })

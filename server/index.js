@@ -24,7 +24,7 @@ app.listen(port, () => {
 const hospital_route = require('./routes/hospital.routes/hospital.routes')
 const patient_route = require('./routes/patient.routes/patient.routes')
 const doctor_routes = require('./routes/doctor.routes/doctors.routes')
-const pharma_route = require('./routes/pharmacy/pharma.routes')
+const pharma_route = require('./routes/pharmacy.routes/pharma.routes')
 
 app.use('/api/hospital', hospital_route)
 app.use('/api/patient', patient_route)

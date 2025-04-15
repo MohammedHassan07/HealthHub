@@ -7,6 +7,7 @@ const patinet_schema = new Schema({
     patient_name: { type: String, required: true },
     patient_address: { type: String, required: true },
     patient_mobile: { type: String, required: true },
+    patient_email: { type: String, required: true },
     patient_image: { type: String, required: true },
     patient_age: { type: String, required: true },
     patient_gender: { type: String, required: true },

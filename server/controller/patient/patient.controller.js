@@ -12,6 +12,7 @@ const create_patient_profile = async (req, res) => {
             patient_name,
             patient_address,
             patient_mobile,
+            patient_email,
             password,
             patient_gender,
             patient_age,
@@ -29,6 +30,7 @@ const create_patient_profile = async (req, res) => {
             patient_name,
             patient_address,
             patient_mobile,
+            patient_email,
             patient_gender,
             patient_age,
             password: hashPass,
@@ -127,9 +129,9 @@ const view_patient = async (req, res) => {
 
         // console.log(patient_RN)
 
-        const patient = await patientModel.find({ patient_RN })
+        const patient = await patientModel.findOne({ patient_RN })
 
-        if (patient.length == 0) {
+        if (!patient) {
 
             res.status(404).json({
 
@@ -138,6 +140,8 @@ const view_patient = async (req, res) => {
             })
             return
         }
+
+        // console.log(patient)
 
         res.status(200).json({
             "message": "Data Found",

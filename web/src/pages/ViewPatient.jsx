@@ -8,7 +8,7 @@ import { ToastContainer } from 'react-toastify'
 
 const ViewPatient = () => {
 
-  const [patientData, setPatientData] = useState([])
+  const [patientData, setPatientData] = useState({})
 
   
   // handle input change
@@ -57,6 +57,8 @@ const ViewPatient = () => {
         </div>
 
         {/* patient detail with photo */}
+        {/* TODO: show patient image */}
+        {console.log(patientData)}
         <div className='flex border-b-2 border-blue-950 p-2 gap-4'>
 
           <div className='border-2 border-blue-950'>
@@ -67,23 +69,23 @@ const ViewPatient = () => {
 
             <div className=''>
 
-              <p className='mt-2 text-xl'>Name: {'Potter'}</p>
-              <p className='mt-2 text-xl'>Aadhar: {'4123456'}</p>
+              <p className='mt-2 text-xl'>Name: {patientData.patient_name}</p>
+              <p className='mt-2 text-xl'>Aadhar: {patientData.patient_RN}</p>
             </div>
 
             <div>
 
-              <p className='mt-2 text-xl' >Age: {'12'}</p>
-              <p className='mt-2 text-xl' >Gender: {'Male'}</p>
+              <p className='mt-2 text-xl' >Age: {patientData.patient_age}</p>
+              <p className='mt-2 text-xl' >Gender: {patientData.patient_gender}</p>
             </div>
 
             <div>
-              <p className='mt-2 text-xl' >Mobile: {'1243545'}</p>
-              <p className='mt-2 text-xl' >Email: {'Potter@Hogwardz.com'}</p>
+              <p className='mt-2 text-xl' >Mobile: {patientData.patient_mobile}</p>
+              <p className='mt-2 text-xl' >Email: {patientData.patient_email}</p>
             </div>
             <div>
 
-              <p className='mt-2 text-xl' >Address: {'Hogwardz'}</p>
+              <p className='mt-2 text-xl' >Address: {patientData.patient_address}</p>
             </div>
           </div>
 
@@ -148,10 +150,6 @@ const ViewPatient = () => {
                     Lab report </button>
                 </div>
 
-              </div>
-
-              <div>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum dolores cupiditate beatae est! Voluptates nihil voluptate impedit delectus ullam, corrupti voluptatibus odit laudantium architecto vitae illum nobis doloremque facere incidunt!</p>
               </div>
             </div>
 

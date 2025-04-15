@@ -4,16 +4,16 @@ import user from '../assets/icons/user.png'
 import isEmpty from '../utils/isEmpty'
 import postRequest from '../services/postRequest'
 import { useLocation } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
+import notify from '../utils/toast'
 
 const CreateProfile = () => {
-    const [success, setSuccess] = useState(false)
     const [message, setMessage] = useState('')
     const location = useLocation()
     const task = location.state || ''
     const [userType, setUserType] = useState('')
     const [endpoint, setEndpoint] = useState('')
 
-    // Reducer function
     function reducer(state, action) {
         switch (action.type) {
             case 'SET_FIELD':
@@ -27,7 +27,6 @@ const CreateProfile = () => {
         }
     }
 
-    // Function to get the initial state
     function getInitialState(task) {
         switch (task) {
             case 'Create Doctor':
@@ -71,7 +70,6 @@ const CreateProfile = () => {
 
     const [state, dispatch] = useReducer(reducer, getInitialState(task))
 
-    // Update userType, endpoint, and reset state when task changes
     useEffect(() => {
         let userType = ''
         let endpoint = ''
@@ -102,7 +100,6 @@ const CreateProfile = () => {
         dispatch({ type: 'RESET', payload: newState })
     }, [task])
 
-    // Function to append data in FormData
     function appendFormData(states) {
         const formData = new FormData()
         for (let key in states) {
@@ -112,7 +109,6 @@ const CreateProfile = () => {
         return formData
     }
 
-    // Handle image change
     const handleImageChange = (e) => {
         const file = e.target.files[0]
         if (file) {
@@ -120,155 +116,120 @@ const CreateProfile = () => {
         }
     }
 
-    // Handle create profile
     async function handleCreateProfile(e) {
         e.preventDefault()
 
         if (!state.image) {
-            setMessage('Image is required...')
-            setTimeout(() => setMessage(''), 2000)
+            notify(400 ,'Image is required...')
             return
         }
 
         const { flag, error } = isEmpty(state)
 
         if (flag) {
-            setMessage(error)
-            setTimeout(() => setMessage(''), 2000)
+            notify(400, error)
             return
         }
-        const formData = appendFormData(state)
-        const response = await postRequest(endpoint, formData)
 
-        if (response.flag) {
-            setSuccess(true)
-            setMessage(response.response.data.message)
-        } else {
-            setSuccess(false)
-            setMessage(response.response.message)
-        }
-        setTimeout(() => setMessage(''), 2000)
+        const formData = appendFormData(state)
+        const { data, status, message } = await postRequest(endpoint, formData)
+
+        notify(status, message)
+
     }
 
-    // Function to render inputs based on the task
-    function renderInputsBasedOnTask(task) {
+    function renderInputs() {
+        const fields = Object.keys(state).filter(key => key !== 'image')
+        const inputs = []
 
-        const formConfig = {
-            'Create Doctor': [
-                { label: 'Licence / Registration Number', field: 'doctor_RN', type: 'text', placeholder: 'Your Licence or Registration  number' },
-                { label: 'Full Name', field: 'doctor_name', type: 'text', placeholder: 'Your Name' },
-                { label: 'Mobile Number', field: 'doctor_mobile', type: 'tel', placeholder: 'Your Mobile number' },
-                { label: 'Password', field: 'password', type: 'password', placeholder: 'Password' },
-                { label: 'Email Address', field: 'doctor_email', type: 'email', placeholder: 'Your Email' },
-                { label: 'Gender', field: 'doctor_gender', type: 'select', options: ['Male', 'Female'] },
-                { label: 'Qualification', field: 'doctor_qualification', type: 'textarea' },
-            ],
-            'Create Patient': [
-                { label: 'Aadhar Number', field: 'patient_RN', type: 'text', placeholder: 'Your Aadhar number' },
-                { label: 'Full Name', field: 'patient_name', type: 'text', placeholder: 'Your Name' },
-                { label: 'Mobile Number', field: 'patient_mobile', type: 'tel', placeholder: 'Your Mobile number' },
-                { label: 'Password', field: 'password', type: 'password', placeholder: 'Password' },
-                { label: 'Email Address', field: 'patient_email', type: 'email', placeholder: 'Your Email' },
-                { label: 'Gender', field: 'patient_gender', type: 'select', options: ['Male', 'Female'] },
-                { label: 'Age', field: 'patient_age', type: 'tel', placeholder: 'Your Age number' },
-                { label: 'Address', field: 'patient_address', type: 'textarea' },
-            ],
-            'Create Pharma': [
-                { label: 'Licence / Registration Number', field: 'pharma_RN', type: 'text', placeholder: 'Your Licence or Registration  number' },
-                { label: 'Pharmacy Name', field: 'pharma_name', type: 'text', placeholder: 'Your Name' },
-                { label: 'Owner Name', field: 'owner_name', type: 'text', placeholder: 'Pharmacist Name' },
-                { label: 'Mobile Number', field: 'pharma_mobile', type: 'tel', placeholder: 'Your Mobile number' },
+        for (let key of fields) {
+            const label = key.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase())
 
-                { label: 'Email', field: 'pharma_email', type: 'email', placeholder: 'Your Email' },
-                { label: 'Password', field: 'password', type: 'password', placeholder: 'Password' },
-                { label: 'Qualification', field: 'pharma_qualification', type: 'textarea' },
-
-            ]
-        }
-
-        const config = formConfig[task] || []
-        return config.map((input, index) => {
-            if (input.type === 'select') {
-                return (
-                    <div key={index} className="w-80">
-                        <label>{input.label}</label>
+            if (key.toLowerCase().includes('gender')) {
+                inputs.push(
+                    <div key={key} className="flex flex-col w-full md:w-[48%]">
+                        <label className="mb-1">{label}</label>
                         <select
-                            className="w-full p-1 border-2 border-blue-950 rounded-lg"
-                            value={state[input.field]}
-                            onChange={(e) => dispatch({ type: 'SET_FIELD', field: input.field, value: e.target.value })}
+                            value={state[key]}
+                            onChange={(e) => dispatch({ type: 'SET_FIELD', field: key, value: e.target.value })}
+                            className="border border-gray-400 p-2 rounded"
                         >
                             <option value="">Select</option>
-                            {input.options.map((option, idx) => (
-                                <option key={idx} value={option}>{option}</option>
-                            ))}
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
                         </select>
                     </div>
                 )
-            }
-
-            if (input.type === 'textarea') {
-                return (
-                    <div key={index} className="w-80">
-                        <label>{input.label}</label>
+            } else if (key.toLowerCase().includes('address') || key.toLowerCase().includes('qualification')) {
+                inputs.push(
+                    <div key={key} className="flex flex-col w-full">
+                        <label className="mb-1">{label}</label>
                         <textarea
-                            className="w-full h-28 p-1 border-2 border-blue-950 rounded-lg"
-                            placeholder={input.placeholder}
-                            value={state[input.field]}
-                            onChange={(e) => dispatch({ type: 'SET_FIELD', field: input.field, value: e.target.value })}
+                            value={state[key]}
+                            onChange={(e) => dispatch({ type: 'SET_FIELD', field: key, value: e.target.value })}
+                            className="border border-gray-400 p-2 rounded h-24"
+                            placeholder={label}
+                        />
+                    </div>
+                )
+            } else {
+                inputs.push(
+                    <div key={key} className="flex flex-col w-full md:w-[48%]">
+                        <Input
+                            lable={label}
+                            type={key.toLowerCase().includes('password') ? 'password' : 'text'}
+                            value={state[key]}
+                            placeholder={label}
+                            inputChange={(e) => dispatch({ type: 'SET_FIELD', field: key, value: e.target.value })}
                         />
                     </div>
                 )
             }
+        }
 
-            return (
-                <div key={index} className="w-80">
-                    <Input
-                        lable={input.label}
-                        type={input.type}
-                        placeholder={input.placeholder}
-                        value={state[input.field]}
-                        inputChange={(e) => dispatch({ type: 'SET_FIELD', field: input.field, value: e.target.value })}
-                    />
-                </div>
-            )
-        })
+        return inputs
     }
 
     return (
-        <main className="flex flex-col justify-center items-center">
-            <h2 className="mt-5 text-center text-2xl">{task} Profile</h2>
-            <form className="w-3/5 flex flex-col justify-center items-center border-2 border-blue-950 rounded-lg p-3 mt-7 mb-8">
-                {message && (
-                    <div className={success ? 'text-green-600' : 'text-red-700'}>
-                        <span>{message}</span>
-                    </div>
-                )}
-                <div className="flex flex-col justify-center items-center w-full">
-                    <div className='flex flex-col justify-center items-center'>
-                        <img
-                            className="w-24 border-2 border-blue-950 rounded-lg"
-                            src={state.image ? URL.createObjectURL(state.image) : user}
-                            alt="profile"
-                        />
-                        <input
-                            className='mt-3 w-52'
-                            type="file"
-                            onChange={handleImageChange}
-                        />
-                    </div>
-                    <div className="mt-6">
-                        {renderInputsBasedOnTask(task)}
-                    </div>
+        <main className="flex flex-col items-center justify-center p-4">
+            <h2 className="text-2xl font-bold mb-4">{task} Profile</h2>
+
+            <form
+                className="w-full max-w-5xl border-2 border-blue-950 rounded-lg p-6 flex flex-col gap-6"
+                onSubmit={handleCreateProfile}
+            >
+                {/* Image Upload */}
+                <div className="flex flex-col md:flex-row items-center gap-4">
+                    <img
+                        className="w-24 h-24 border-2 border-blue-950 rounded object-cover"
+                        src={state.image ? URL.createObjectURL(state.image) : user}
+                        alt="profile"
+                    />
+                    <input
+                        className="w-full md:w-1/2"
+                        type="file"
+                        onChange={handleImageChange}
+                    />
                 </div>
-                <div className='w-80 bg-sky-300 rounded-lg p-1 mt-4 text-center hover:bg-blue-950 hover:text-white hover:shadow hover:shadow-blue-950'>
+
+                {/* Input Fields */}
+                <div className="flex flex-wrap gap-4">
+                    {renderInputs()}
+                </div>
+
+                {/* Submit Button */}
+                <div className="flex justify-center">
                     <button
-                        className='text-md w-full h-full'
-                        onClick={handleCreateProfile}
+                        type="submit"
+                        className="bg-blue-950 text-white px-6 py-2 rounded hover:bg-sky-300 transition"
                     >
                         Create Profile
                     </button>
                 </div>
+
             </form>
+
+            <ToastContainer />
         </main>
     )
 }

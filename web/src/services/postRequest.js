@@ -4,12 +4,14 @@ export default async function postRequest(endPoint, data) {
 
     try {
 
-        console.log('post request --> ', endPoint)
+        // console.log('post request --> ', endPoint)
+
+        const tokenData = localStorage.getItem('tokenData')
 
         const config = {
             headers: {
 
-                // token: token
+                token: tokenData.token,
                 'Content-Type': 'application/json'
             }
         }

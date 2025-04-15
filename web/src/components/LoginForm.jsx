@@ -50,18 +50,16 @@ const LoginForm = () => {
         // console.log(loginData)
         const { data, status, message } = await postRequest(endPoint, loginData)
 
-        // console.log(response)
-
         if (status === 200) {
 
             const token = data.token
             localStorage.setItem('tokenData', JSON.stringify({ token }))
 
-            // navigate(`/${categoryState.category}-dashboard`)
+            navigate(`/${categoryState.category}-dashboard`)
         } else {
 
             // console.log('Login failed:', message)
-            
+
             toast.error(message, {
                 position: "bottom-right",
                 autoClose: 3000,

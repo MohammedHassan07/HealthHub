@@ -64,8 +64,10 @@ const HospitalDashboard = () => {
         {/* Main Content */}
         <div className="flex flex-col w-full h-screen">
          
+            {/* <h1>Hospital Dashboard</h1> */}
           {/* Scrollable Main Content */}
-          <div className="flex-grow overflow-y-auto p-4">
+          <div className="flex-grow overflow-y-auto">
+
             <Outlet />
           </div>
         </div>

@@ -35,7 +35,7 @@ const create_hospital_profile = async (req, res) => {
 
         const saved_data = await hospital_data.save()
         res.status(201).json({
-            "status": 201,
+
             "message": "User registered successfully."
         })
 
@@ -43,7 +43,7 @@ const create_hospital_profile = async (req, res) => {
 
         console.log('crearte hospital profile --> ', error)
         res.status(500).json({
-            "status": 500,
+
             "error": "Internal Server Error",
             "message": "An error occurred while attempting to save the data. Please try again later."
         })
@@ -66,7 +66,7 @@ const hospital_login = async (req, res) => {
         if (!hospital_data) {
 
             return res.status(404).json({
-                "status": 404,
+
                 "error": "Not Found",
                 "message": "The requested data was not found."
             })
@@ -79,7 +79,7 @@ const hospital_login = async (req, res) => {
         if (!verified) {
 
             res.status(401).json({
-                "status": 401,
+
                 "error": "Unauthorized",
                 "message": "Invalid credentials. Please check your username and password and try again."
             })
@@ -91,26 +91,23 @@ const hospital_login = async (req, res) => {
         if (!token) {
 
             res.status(500).json({
-                "status": 500,
+
                 "error": "Internal Server Error",
                 "message": "An error occurred while attempting to save the data. Please try again later."
             })
             return
         }
         res.status(200).json({
-            "status": 200,
-            "message": "Login successful.",
-            "data": {
-                "username": hospital_RN,
-                "token": token
-            }
+            "username": hospital_RN,
+            "token": token,
+            "message": "Login successfull"
         })
 
     } catch (error) {
 
         console.log('login hospital --> ', error)
         res.status(500).json({
-            "status": 500,
+
             "error": "Internal Server Error",
             "message": "An error occurred while attempting to save the data. Please try again later."
         })

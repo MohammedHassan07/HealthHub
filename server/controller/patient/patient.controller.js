@@ -37,6 +37,7 @@ const create_patient_profile = async (req, res) => {
 
         const saved_data = await patient_data.save()
         res.status(201).json({
+            "data": {patient_RN, patient_name},
             "status": 201,
             "message": "User registered successfully."
         })

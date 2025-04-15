@@ -138,11 +138,11 @@ const CreateProfile = () => {
         }
 
         const formData = appendFormData(state)
-        
+
         const { data, status, message } = await postRequest(endpoint, formData)
 
         console.log(data, status, message)
-        notify(status, data.message)
+        notify(status, message)
 
     }
 

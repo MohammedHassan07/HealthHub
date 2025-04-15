@@ -11,7 +11,11 @@ export default async function postRequest(endPoint, data) {
 
             // console.log('post request --> ', endPoint)
             const { token } = JSON.parse(localStorage.getItem('tokenData'))
-            config.headers.token = token
+            config = {
+                headers: {
+                    token: token
+                }
+            }
         } else {
             config = {
                 headers: {
@@ -20,11 +24,12 @@ export default async function postRequest(endPoint, data) {
             }
         }
 
+        // console.log(config)
         const response = await axios.post(endPoint, data, config)
 
         console.log(response)
 
-        return { data: response.data, status: response.status, message: response.message }
+        return { data: response.data, status: response.status, message: response.data.message }
 
     } catch (error) {
 

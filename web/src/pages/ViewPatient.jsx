@@ -1,11 +1,41 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import qrCode from '../assets/icons/qr-code-scanner.png'
 import search from '../assets/icons/search.png'
 import userImage from '../assets/icons/user.png'
+import getRequest from '../services/getRequest'
+import notify from '../utils/toast'
+import { ToastContainer } from 'react-toastify'
 
 const ViewPatient = () => {
+
+  const [patientData, setPatientData] = useState([])
+
+  
+  // handle input change
+  // TODO: Add delay before making request to backend
+  const handleInputChange = async (e) => {
+
+    const patient_RN = e.target.value
+
+    // console.log(patient_RN)
+
+    const { data, status, message } = await getRequest(`/api/patient/view-patient/${patient_RN}`)
+
+    if (status !== 200 ) {
+
+      console.log(status, message)
+      notify(status, message)
+      return 
+    }
+
+    console.log(data.data, status)
+    setPatientData(data.data)
+  }
+
   return (
     <div className=''>
+
+      <ToastContainer />
 
       <div className=''>
 
@@ -13,7 +43,7 @@ const ViewPatient = () => {
         <div className='w-full bg-blue-950 flex justify-between items-center p-2 gap-2'>
 
           <div className='w-full'>
-            <input className='w-full border-2 border-blue-950 rounded-lg p-1 focus:outline-none' type="text" placeholder="Search Patient" />
+            <input onChange={(e) => { handleInputChange(e) }} className='w-full border-2 border-blue-950 rounded-lg p-1 focus:outline-none' type="text" placeholder="Search Patient" />
           </div>
 
           <div className='flex gap-2'>

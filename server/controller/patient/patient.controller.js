@@ -37,7 +37,7 @@ const create_patient_profile = async (req, res) => {
 
         const saved_data = await patient_data.save()
         res.status(201).json({
-            "data": {patient_RN, patient_name},
+            "data": { patient_RN, patient_name },
             "status": 201,
             "message": "User registered successfully."
         })
@@ -67,7 +67,7 @@ const login_patient = async (req, res) => {
         if (!patient_data) {
 
             return res.status(404).json({
-                "status": 404,
+
                 "error": "Not Found",
                 "message": "The requested data was not found."
             })
@@ -99,7 +99,7 @@ const login_patient = async (req, res) => {
             return
         }
         res.status(200).json({
-            "status": 200,
+
             "message": "Login successful.",
             "data": {
                 "username": patient_RN,
@@ -111,6 +111,42 @@ const login_patient = async (req, res) => {
 
         console.log('login patient --> ', error)
         res.status(500).json({
+
+            "error": "Internal Server Error",
+            "message": "An error occurred while attempting to save the data. Please try again later."
+        })
+    }
+}
+
+// View Patient
+const view_patient = async (req, res) => {
+
+    try {
+
+        const patient_RN = req.params.RN
+
+        // console.log(patient_RN)
+
+        const patient = await patientModel.find({ patient_RN })
+
+        if (patient.length == 0) {
+
+            res.status(404).json({
+
+                "error": "Not Found",
+                "message": "The requested data was not found."
+            })
+            return
+        }
+
+        res.status(200).json({
+            "message": "Data Found",
+            "data": patient
+        })
+
+    } catch (error) {
+        console.log('login patient --> ', error)
+        res.status(500).json({
             "status": 500,
             "error": "Internal Server Error",
             "message": "An error occurred while attempting to save the data. Please try again later."
@@ -119,5 +155,6 @@ const login_patient = async (req, res) => {
 }
 module.exports = {
     create_patient_profile,
-    login_patient
+    login_patient,
+    view_patient
 }

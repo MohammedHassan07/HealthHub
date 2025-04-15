@@ -57,7 +57,6 @@ const create_doctor_profile = async (req, res) => {
 // Login doctor
 const doctor_login = async (req, res) => {
 
-
     try {
 
         const {
@@ -120,7 +119,38 @@ const doctor_login = async (req, res) => {
         })
     }
 }
+
+const view_doctors = async (req, res) => {
+    try {
+
+        const doctors = await doctorModel.find()
+
+        if (!doctors) {
+
+            res.status(404).json({
+
+                "error": "Not Found",
+                "message": "The requested data was not found."
+            })
+            return
+        }
+
+        res.status(200).json({
+            "message": "Data Found",
+            "data": doctors
+        })
+
+    } catch (error) {
+        console.log('login doctors --> ', error)
+        res.status(500).json({
+            "status": 500,
+            "error": "Internal Server Error",
+            "message": "An error occurred while attempting to save the data. Please try again later."
+        })
+    }
+}
 module.exports = {
     create_doctor_profile,
-    doctor_login
+    doctor_login,
+    view_doctors
 }

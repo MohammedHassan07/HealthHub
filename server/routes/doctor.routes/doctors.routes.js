@@ -1,4 +1,4 @@
-const { create_doctor_profile, doctor_login } = require('../../controller/doctor/doctor.controller')
+const { create_doctor_profile, doctor_login, view_doctors } = require('../../controller/doctor/doctor.controller')
 const isEmpty = require('../../middlewares/isEmpty')
 const isUnique = require('../../middlewares/isUnique')
 const imageUpload = require('../../middlewares/imageUpload')
@@ -15,5 +15,8 @@ doctor_routes.post('/create-profile',
     create_doctor_profile)
 
 doctor_routes.post('/login', isEmpty, doctor_login)
+
+
+doctor_routes.get('/view-doctors', verify_jwt_token, view_doctors)
 
 module.exports = doctor_routes

@@ -10,6 +10,8 @@ const storage = multer.diskStorage({
 
     filename: (req, file, cb) => {
 
+
+        // console.log(file)
         if (file.mimetype !== 'image/png') {
 
             return cb(new Error('Bad Request: Invalid file type. Only PNG images are allowed.'));
@@ -21,7 +23,6 @@ const storage = multer.diskStorage({
         // const { default: imageType } = await import('image-type');  
         // const type = imageType(file.buffer)
 
-        // console.log(file)
         const fileName = `${Date.now()}-${Math.random()}.png`
         return cb(null, fileName)
 

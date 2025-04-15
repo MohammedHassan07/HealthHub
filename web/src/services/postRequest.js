@@ -6,19 +6,23 @@ export default async function postRequest(endPoint, data) {
 
         // console.log('post request --> ', endPoint)
 
-        const tokenData = localStorage.getItem('tokenData')
+        let config = {}
+        if (!endPoint.includes('/login')) {
 
-        const config = {
-            headers: {
-
-                token: tokenData.token,
-                'Content-Type': 'application/json'
+            // console.log('post request --> ', endPoint)
+            const { token } = JSON.parse(localStorage.getItem('tokenData'))
+            config.headers.token = token
+        } else {
+            config = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             }
         }
 
         const response = await axios.post(endPoint, data, config)
 
-        // console.log(response)
+        console.log(response)
 
         return { data: response.data, status: response.status, message: response.message }
 

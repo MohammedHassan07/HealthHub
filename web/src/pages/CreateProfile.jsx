@@ -8,7 +8,6 @@ import { ToastContainer } from 'react-toastify'
 import notify from '../utils/toast'
 
 const CreateProfile = () => {
-    const [message, setMessage] = useState('')
     const location = useLocation()
     const task = location.state || ''
     const [userType, setUserType] = useState('')
@@ -101,10 +100,17 @@ const CreateProfile = () => {
     }, [task])
 
     function appendFormData(states) {
+
         const formData = new FormData()
+
         for (let key in states) {
-            formData.append(key, states[key])
+            if (key === 'image') {
+                formData.append('image', states[key]) 
+            } else {
+                formData.append(key, states[key])    
+            }
         }
+
         formData.append('userType', userType)
         return formData
     }
@@ -120,7 +126,7 @@ const CreateProfile = () => {
         e.preventDefault()
 
         if (!state.image) {
-            notify(400 ,'Image is required...')
+            notify(400, 'Image is required...')
             return
         }
 
@@ -132,9 +138,11 @@ const CreateProfile = () => {
         }
 
         const formData = appendFormData(state)
+        
         const { data, status, message } = await postRequest(endpoint, formData)
 
-        notify(status, message)
+        console.log(data, status, message)
+        notify(status, data.message)
 
     }
 

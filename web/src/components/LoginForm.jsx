@@ -37,7 +37,7 @@ const LoginForm = () => {
 
         if (flag) {
 
-            notify(error)
+            notify(401, error)
             return
         }
 
@@ -48,6 +48,7 @@ const LoginForm = () => {
         loginData.password = password
 
         // console.log(loginData)
+        // await postRequest(endPoint, loginData)
         const { data, status, message } = await postRequest(endPoint, loginData)
 
         if (status === 200) {
@@ -60,15 +61,7 @@ const LoginForm = () => {
 
             // console.log('Login failed:', message)
 
-            toast.error(message, {
-                position: "bottom-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
+          notify(401, message)
         }
     }
 

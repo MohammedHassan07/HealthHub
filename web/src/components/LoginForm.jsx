@@ -3,6 +3,8 @@ import isEmpty from '../utils/isEmpty'
 import postRequest from '../services/postRequest'
 import { useNavigate } from 'react-router-dom'
 import { CategoryContext } from '../context/CategoryContext'
+import { ToastContainer, toast } from 'react-toastify';
+import notify from '../utils/toast'
 
 const LoginForm = () => {
 
@@ -10,7 +12,6 @@ const LoginForm = () => {
 
     const [registrationNumber, setRegistrationNumber] = useState('')
     const [password, setPassword] = useState('')
-    const [message, setMessage] = useState('')
     const categoryState = useContext(CategoryContext)
 
     useEffect(() => {
@@ -22,7 +23,7 @@ const LoginForm = () => {
 
             const { token } = JSON.parse(tokenData)
             // console.log('Token found:', token)
-            
+
             navigate(`/${categoryState.category}-dashboard/description`)
         }
     }, [])
@@ -31,35 +32,45 @@ const LoginForm = () => {
     async function handleLogin(e) {
         e.preventDefault()
 
-        const data = { registrationNumber, password }
-        const { flag, error } = isEmpty(data)
+        const loginData = { registrationNumber, password }
+        const { flag, error } = isEmpty(loginData)
 
         if (flag) {
-            setMessage(error)
-            setTimeout(() => setMessage(''), 2000)
+
+            notify(error)
             return
         }
 
         const [endPoint, registrationType] = getUserType(categoryState.category)
-        console.log(endPoint)
-
-        let loginData = {}
+        // console.log(endPoint)
 
         loginData[registrationType] = registrationNumber
         loginData.password = password
-       
-        console.log(loginData)
-        const response = await postRequest(endPoint, loginData)
-        if (response.flag) {
 
-            const token = response.response.data.data.token
+        // console.log(loginData)
+        const { data, status, message } = await postRequest(endPoint, loginData)
+
+        // console.log(response)
+
+        if (status === 200) {
+
+            const token = data.token
             localStorage.setItem('tokenData', JSON.stringify({ token }))
 
-            navigate(`/${categoryState.category}-dashboard`)
+            // navigate(`/${categoryState.category}-dashboard`)
         } else {
-            console.log('Login failed:', response)
-            setMessage(response.response.message)
-            setTimeout(() => setMessage(''), 2000)
+
+            // console.log('Login failed:', message)
+            
+            toast.error(message, {
+                position: "bottom-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
         }
     }
 
@@ -88,11 +99,9 @@ const LoginForm = () => {
             <div className='border-2 border-blue-950 rounded-lg w-1/3 p-4'>
                 <h2 className='text-3xl font-medium'>{categoryState.category} Log in</h2>
                 <form className='mt-4'>
-                    {message && (
-                        <div className='text-red-700'>
-                            <span>{message}</span>
-                        </div>
-                    )}
+
+                    <ToastContainer />
+
                     <div>
                         <label>Registration / License Number</label>
                         <input

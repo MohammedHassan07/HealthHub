@@ -1,51 +1,76 @@
 import React, { useEffect, useState } from 'react'
 import DoctorCard from '../components/DoctorCard'
 import getRequest from '../services/getRequest'
+import { ToastContainer } from 'react-toastify'
+import search from '../assets/icons/search.png'
+import notify from '../utils/toast'
 
 const ViewDoctor = () => {
 
     const [doctorData, setDoctorData] = useState([{}])
 
-    useEffect(() => {
+    // handle input change
+    // TODO: Add delay before making request to backend
+    const handleInputChange = async (e) => {
 
-        const fetchDoctorData = async () => {
+        const doctor_RN = e.target.value
 
-            // const { data, status, message } = await getRequest('/api/view-doctors')
+        const { data, status, message } = await getRequest(`/api/doctor/view-doctors/${doctor_RN}`)
+
+        if (status !== 200) {
+
+            console.log(status, message)
+            notify(status, message)
+            return
         }
 
-        fetchDoctorData()
-
-    })
-    const doctor = {
-        name: 'potter',
-        registration: '123',
-        email: 'potter@hogwardz.com',
-        mobile: '1234',
-        qualification: 'MS'
+        console.log(data.data)
+        setDoctorData(data.data)
     }
+
+
     return (
-        <div className='text-blue-950 flex flex-col justify-center items-center mt-5 mb-5 overflow-y-auto'>
+        <>
 
-            <DoctorCard doctor={doctor} />
+            <div>
+                <ToastContainer />
 
-            <DoctorCard doctor={doctor} />
+                {/* search doctor  */}
+                <div className='w-full bg-blue-950 flex justify-between items-center p-2 gap-2'>
 
-            <DoctorCard doctor={doctor} />
+                    <div className='w-full'>
+                        <input onChange={(e) => { handleInputChange(e) }} className='w-full border-2 border-blue-950 rounded-lg p-1 focus:outline-none' type="text" placeholder="Search Doctor by Name or Registration number" />
+                    </div>
 
-            <DoctorCard doctor={doctor} />
+                    <div className='flex gap-2'>
 
-            <DoctorCard doctor={doctor} />
+                        <img className='w-8' src={search} alt="Search" />
+                    </div>
 
-            <DoctorCard doctor={doctor} />
+                </div>
 
-            <DoctorCard doctor={doctor} />
+            </div>
 
-            <DoctorCard doctor={doctor} />
 
-            <DoctorCard doctor={doctor} />
+            {doctorData ? <>
 
-            <DoctorCard doctor={doctor} />
-        </div>
+                <div className='text-blue-950 flex flex-col justify-center items-center mt-5 mb-5 overflow-y-auto'>
+
+                    {doctorData.map((doctor) => {
+                        return (
+
+                            <DoctorCard doctor={doctor} key={doctor._id} />
+                        )
+                    })}
+                </div>
+            </> : <>
+
+                <h1>no</h1>
+
+            </>}
+
+
+        </>
     )
 }
 

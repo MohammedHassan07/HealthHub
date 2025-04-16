@@ -4,6 +4,7 @@ import EditProfile from './EditProfile';
 
 const DoctorCard = ({ doctor }) => {
 
+    // console.log(doctor)
     const [isEditing, setIsEditing] = useState(false)
     const doctorIdRef = useRef(null);
 
@@ -37,23 +38,23 @@ const DoctorCard = ({ doctor }) => {
                         </div>
                         <div className="mt-3">
                             <div>
-                                <span className="text-xl">Name:</span> {doctor.name}
+                                <span className="text-xl">Name:</span> {doctor.doctor_name}
                             </div>
                             <div className="mt-2">
-                                <span className="text-xl">Registration / Licence :</span> {doctor.registration}
+                                <span className="text-xl">Registration / Licence :</span> {doctor.doctor_RN}
                             </div>
                         </div>
                         <div className="mt-3">
                             <div>
-                                <span className="text-xl">Email:</span> {doctor.email}
+                                <span className="text-xl">Email:</span> {doctor.doctor_email}
                             </div>
                             <div className="mt-2">
-                                <span className="text-xl">Mobile:</span> {doctor.mobile}
+                                <span className="text-xl">Mobile:</span> {doctor.doctor_mobile}
                             </div>
                         </div>
                         <div className="mt-3">
                             <div>
-                                <span className="text-xl">Qualification:</span> {doctor.qualification}
+                                <span className="text-xl">Qualification:</span> {doctor.doctor_qualification}
                             </div>
                             <div className="flex justify-end items-center gap-4 mt-4">
                                 <button

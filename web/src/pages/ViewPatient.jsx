@@ -33,11 +33,11 @@ const ViewPatient = () => {
   }
 
   return (
-    <div className=''>
+    <div>
 
       <ToastContainer />
 
-      <div className=''>
+      <div>
 
         {/* search patient  */}
         <div className='w-full bg-blue-950 flex justify-between items-center p-2 gap-2'>
@@ -162,7 +162,6 @@ const ViewPatient = () => {
             <h2>Search patient using Registraion number or scan the patinet card</h2>
           </div>
         </>
-
         }
 
       </div>

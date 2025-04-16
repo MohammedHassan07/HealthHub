@@ -1,7 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import DoctorCard from '../components/DoctorCard'
+import getRequest from '../services/getRequest'
 
 const ViewDoctor = () => {
+
+    const [doctorData, setDoctorData] = useState([{}])
+
+    useEffect(() => {
+
+        const fetchDoctorData = async () => {
+
+            // const { data, status, message } = await getRequest('/api/view-doctors')
+        }
+
+        fetchDoctorData()
+
+    })
     const doctor = {
         name: 'potter',
         registration: '123',

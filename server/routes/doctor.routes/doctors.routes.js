@@ -17,6 +17,6 @@ doctor_routes.post('/create-profile',
 doctor_routes.post('/login', isEmpty, doctor_login)
 
 
-doctor_routes.get('/view-doctors', verify_jwt_token, view_doctors)
+doctor_routes.get('/view-doctors/:RN', verify_jwt_token, view_doctors)
 
 module.exports = doctor_routes

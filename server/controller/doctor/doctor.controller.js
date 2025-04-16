@@ -123,9 +123,17 @@ const doctor_login = async (req, res) => {
 const view_doctors = async (req, res) => {
     try {
 
-        const doctors = await doctorModel.find()
+        const doctorFilter = req.params.RN
 
-        if (!doctors) {
+        const doctors = await doctorModel.find({
+
+            $or: [
+                {doctor_RN: doctorFilter},
+                {doctor_name: doctorFilter}
+            ]
+        })
+
+        if (!doctors || doctors.length === 0) {
 
             res.status(404).json({
 

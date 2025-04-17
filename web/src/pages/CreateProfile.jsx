@@ -105,9 +105,9 @@ const CreateProfile = () => {
 
         for (let key in states) {
             if (key === 'image') {
-                formData.append('image', states[key]) 
+                formData.append('image', states[key])
             } else {
-                formData.append(key, states[key])    
+                formData.append(key, states[key])
             }
         }
 
@@ -200,7 +200,7 @@ const CreateProfile = () => {
 
     return (
         <main className="flex flex-col items-center justify-center p-4">
-            <h2 className="text-2xl font-bold mb-4">{task} Profile</h2>
+            {/* <h2 className="text-2xl font-bold mb-4">{task} Profile</h2> */}
 
             <form
                 className="w-full max-w-5xl border-2 border-blue-950 rounded-lg p-6 flex flex-col gap-6"
@@ -218,6 +218,8 @@ const CreateProfile = () => {
                         type="file"
                         onChange={handleImageChange}
                     />
+                      <h2 className="text-2xl font-bold">{task} Profile</h2>
+
                 </div>
 
                 {/* Input Fields */}

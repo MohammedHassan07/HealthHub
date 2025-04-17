@@ -11,6 +11,7 @@ import Navbar from './components/Navbar'
 import Description from './pages/Description'
 import CreateProfile from './pages/CreateProfile'
 import ViewDoctor from './pages/ViewDoctor'
+import ViewPharma from './pages/ViewPharma'
 
 function Layout({ children }) {
 
@@ -47,6 +48,7 @@ function App() {
                 <Route path='create-profile' element={<CreateProfile />} />
                 <Route path='view-patient' element={<ViewPatient />} />
                 <Route path='view-doctor' element={<ViewDoctor />} />
+                <Route path='view-pharma' element={<ViewPharma />} />
               </Route>
 
               <Route path='/doctor-dashboard' element={<DoctorDashboard />} />

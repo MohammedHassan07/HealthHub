@@ -1,4 +1,4 @@
-const pharmaModel = require('../../models/pharma.model')
+const phamraModel = require('../../models/pharma.model')
 const { generate_password, compare_password } = require('../../utils/hash')
 const { generate_token } = require('../../utils/token')
 
@@ -120,7 +120,47 @@ const pharma_login = async (req, res) => {
     }
 }
 
+const view_pharma = async (req, res) => {
+
+    try {
+
+        const pharmaFilter = req.params.RN
+
+        const pharma = await phamraModel.find({
+
+            $or: [
+                {pharma_RN: pharmaFilter},
+                {pharma_name: pharmaFilter}
+            ]
+        })
+
+        if (!pharma || pharma.length === 0) {
+
+            res.status(404).json({
+
+                "error": "Not Found",
+                "message": "The requested data was not found."
+            })
+            return
+        }
+
+        res.status(200).json({
+            "message": "Data Found",
+            "data": pharma
+        })
+
+    } catch (error) {
+        console.log('login pharma --> ', error)
+        res.status(500).json({
+            
+            "error": "Internal Server Error",
+            "message": "An error occurred while attempting to save the data. Please try again later."
+        })
+    }
+}
+
 module.exports = {
     create_pharma_profile,
-    pharma_login
+    pharma_login,
+    view_pharma
 }
